@@ -1,0 +1,84 @@
+use it all the time to save time 
+
+goal -00
+creating the vlan and trunking for sw1 sw2 
+no stop block ports for clients is the goal 
+
+-----------------------------------------------------------------------------------
+
+Sw1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Sw1(config)#int range fa 0/11, fa 0/22
+Sw1(config-if-range)#swit mode trunk
+Sw1(config-if-range)#end
+Sw1#
+
+------------------------------------------------------------------------------------
+
+switch 
+
+conf t 
+spann mode rapid
+spann port defualt
+no ip domain-lookup
+linecon 0
+logg synch no exec-time 
+priv level 15 
+exit
+hostname
+
+
+-----------------------------------------------------------------------------------
+
+router 
+
+conf t
+int range fa 0/11 , fa 0/22
+swit mode trunk
+end
+
+-------------------------------------------------------------------------------------
+
+R1(config-subif)#encapsulation dot1Q 60
+R1(config-subif)#encapsulation dot1Q 60
+R1(config-subif)#ip add 10.67.83.17 255.255.255.240
+R1(config-subif)#int gig 0/0/0.70
+R1(config-subif)#
+
+
+showing proof 
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/1, Fa0/2, Fa0/5, Fa0/6
+                                                Fa0/7, Fa0/8, Fa0/9, Fa0/10
+                                                Fa0/11, Fa0/12, Fa0/13, Fa0/14
+                                                Fa0/15, Fa0/16, Fa0/17, Fa0/18
+                                                Fa0/19, Fa0/20, Fa0/21, Fa0/22
+                                                Fa0/23, Fa0/24, Gig0/1, Gig0/2
+50   VLAN0050                         active    
+60   VLAN0060                         active    Fa0/4
+70   VLAN0070                         active    Fa0/3
+
+
+------------------------------------------------------------------
+
+
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/1, Fa0/2, Fa0/3, Fa0/4
+                                                Fa0/5, Fa0/6, Fa0/7, Fa0/8
+                                                Fa0/9, Fa0/10, Fa0/11, Fa0/12
+                                                Fa0/13, Fa0/14, Fa0/15, Fa0/16
+                                                Fa0/17, Fa0/18, Fa0/19, Fa0/20
+                                                Fa0/21, Fa0/22, Fa0/23, Fa0/24
+                                                Gig0/1, Gig0/2
+50   VLAN0050                         active    
+60   VLAN0060                         active    
+70   VLAN0070                         active    
+1002 fddi-default                     active    
+1003 token-ring-default               active    
+1004 fddinet-default                  active    
+1005 trnet-default                    active   
+------------------------------------------------------------------------------------
