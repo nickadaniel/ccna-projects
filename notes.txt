@@ -1,0 +1,68 @@
+edge-router#sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol 
+GigabitEthernet0/0/0   23.1.2.1        YES manual up                    up 
+GigabitEthernet0/0/1   10.20.0.1       YES manual up                    up 
+GigabitEthernet0/0/2   unassigned      YES unset  administratively down down 
+Vlan1                  unassigned      YES unset  administratively down down
+edge-router#
+edge-router#
+edge-router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+edge-router(config)#router ospf 1
+edge-router(config-router)#default-information originate 
+edge-router(config-router)#end
+edge-router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+
+----------------------------------------------------------------------------------------
+rotuer 1 config 
+
+
+edge-router#sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol 
+GigabitEthernet0/0/0   23.1.2.1        YES manual up                    up 
+GigabitEthernet0/0/1   10.20.0.1       YES manual administratively down down 
+GigabitEthernet0/0/2   unassigned      YES unset  administratively down down 
+Vlan1                  unassigned      YES unset  administratively down down
+
+access-list 1 permit 10.0.0.0 0.255.255.255
+
+ip nat outside
+
+ip nat inside source list 1 interface gig 0/0/0 overload
+
+GigabitEthernet0/0/0   23.1.2.1        YES manual up                    up 
+GigabitEthernet0/0/1   10.20.0.1       YES manual up                    up 
+GigabitEthernet0/0/2   unassigned      YES unset  administratively down down 
+Vlan1                  unassigned      YES unset  administratively down down
+edge-router#show run | inc nat
+ ip nat inside
+ip nat inside source list 1 interface GigabitEthernet0/0/0 overload
+edge-router#
+
+------------------------------------------------------------------------------
+
+MLS1(config)#int vlan  1
+MLS1(config-if)#int vlan 10
+MLS1(config-if)#ip add 10.10.0.11 255.255.255.0
+MLS1(config-if)#end
+MLS1#
+%SYS-5-CONFIG_I: Con
+
+
+do show access-list
+-------------------------------------------------------------------------------------------------
+
+netowrk in a netwrok
+
+GigabitEthernet0/1     unassigned      YES unset  down                  down 
+GigabitEthernet0/2     unassigned      YES unset  down                  down 
+Vlan1                  unassigned      YES unset  administratively down down 
+Vlan10                 10.10.0.11      YES manual down  
+
+GigabitEthernet0/0/0   23.1.2.1        YES manual up                    up 
+GigabitEthernet0/0/1   10.20.0.1       YES manual up                    up 
+GigabitEthernet0/0/2   unassigned      YES unset  administratively down down 
+Vlan1                  unassigned      YES unset  administratively down down
+---------------------------------------------------------------------------------------
