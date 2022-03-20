@@ -1,0 +1,151 @@
+version 16.6.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+ipv6 dhcp pool NewPool
+ dns-server 2001:DB8:6783:30::3
+!
+------------------------------------------------------------
+
+
+Router#wr
+Building configuration...
+[OK]
+Router#
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ipv6 dhcp pool NewPool
+Router(config-dhcpv6)#?
+  address            IPv6 address allocation
+  dns-server         DNS servers
+  domain-name        Domain name to complete unqualified host names
+  exit               Exit from DHCPv6 configuration mode
+  no                 Negate a command or set its defaults
+  prefix-delegation  IPv6 prefix delegation
+Router(config-dhcpv6)#dns-server 2001:db8:6783:30::3
+Router(config-dhcpv6)#do show ipv6 dhcp pool
+DHCPv6 pool: NewPool
+  DNS server: 2001:DB8:6783:30::3
+  Active clients: 0
+
+Router configs 
+
+------------------------------------------------------------
+  spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:6783:20::1/64
+ ipv6 nd other-config-flag
+ ipv6 dhcp server OURPOOl
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+
+
+ipv6 address 2001:Db8:6783:20::1/64
+Router(config-if)#do show ipv6 int gig0/0/0
+
+Router(config-if)#do show ipv6 int gig0/0/1
+GigabitEthernet0/0/1 is up, line protocol is up
+  IPv6 is enabled, link-local address is FE80::2D0:BAFF:FE42:D902
+  No Virtual link-local address(es):
+  Global unicast address(es):
+    2001:DB8:6783:20::1, subnet is 2001:DB8:6783:20::/64
+  Joined group address(es):
+    FF02::1
+    FF02::1:FF00:1
+    FF02::1:FF42:D902
+  MTU is 1500 bytes
+  ICMP error messages limited to one every 100 milliseconds
+  ICMP redirects are enabled
+  ICMP unreachables are sent
+  ND DAD is enabled, number of DAD attempts: 1
+  ND reachable time is 30000 milliseconds
+
+  ----------------------------------------------------------------------------------
+
+  Router(config-if)#do show ipv6 int gig0/0/1
+GigabitEthernet0/0/1 is up, line protocol is up
+  IPv6 is enabled, link-local address is FE80::2D0:BAFF:FE42:D902
+  No Virtual link-local address(es):
+  Global unicast address(es):
+    2001:DB8:6783:20::1, subnet is 2001:DB8:6783:20::/64
+  Joined group address(es):
+    FF02::1
+    FF02::1:FF00:1
+    FF02::1:FF42:D902
+  MTU is 1500 bytes
+  ICMP error messages limited to one every 100 milliseconds
+  ICMP redirects are enabled
+  ICMP unreachables are sent
+  ND DAD is enabled, number of DAD attempts: 1
+  ND reachable time is 30000 milliseconds
+Router(config-if)#do show run
+Building configuration...
+
+Current configuration : 665 bytes
+!
+version 16.6.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+hostname Router
+ip cef
+no ipv6 cef
+spanning-tree mode pvst
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ ipv6 address 2001:DB8:6783:20::1/64
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
